@@ -112,3 +112,15 @@ export const kyveToEth = (kyveAddress: string) => {
   const data = KYVE.decoder(kyveAddress)
   return ETH.encoder(data)
 }
+
+export const KWT = bech32Chain('KWT', 'oraie')
+
+export const ethToKwt = (ethAddress: string) => {
+  const data = ETH.decoder(ethAddress)
+  return KWT.encoder(data)
+}
+
+export const kwtToEth = (kyveAddress: string) => {
+  const data = KWT.decoder(kyveAddress)
+  return ETH.encoder(data)
+}

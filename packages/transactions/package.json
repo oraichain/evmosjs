@@ -26,10 +26,21 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@cosmjs/crypto": "^0.28.4",
+    "@cosmjs/encoding": "^0.28.4",
+    "@cosmjs/proto-signing": "^0.28.4",
+    "@cosmjs/stargate": "^0.28.4",
+    "@oraichain/cosmosjs": "^0.0.94",
     "@tharsis/eip712": "^0.2.2",
     "@tharsis/proto": "^0.1.17",
     "@types/node": "^17.0.21",
     "link-module-alias": "^1.2.0",
     "shx": "^0.3.4"
+  },
+  "resolutions": {
+    "bech32": "2.0.0"
+  },
+  "devDependencies": {
+    "ts-jest": "^28.0.3"
   }
 }

@@ -5,6 +5,7 @@ import {
   ethermintToEth,
   evmosToEth,
   ethToEvmos,
+  kwtToEth
 } from '../src/index'
 
 describe('converter tests', () => {
@@ -45,5 +46,7 @@ describe('converter tests', () => {
     // ETH to EVMOS
     address = ethToEvmos('0x14574a6DFF2Ddf9e07828b4345d3040919AF5652')
     expect(address).toBe('evmos1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw')
+
+    console.log(kwtToEth('oraie14n3tx8s5ftzhlxvq0w5962v60vd82h30v78q92'));
   })
 })
