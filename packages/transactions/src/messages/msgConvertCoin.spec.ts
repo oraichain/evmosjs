@@ -1,21 +1,21 @@
+import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing/build'
+import { stringToPath } from '@cosmjs/crypto'
+import { StargateClient } from '@cosmjs/stargate'
+import { createTxRaw } from '@tharsis/proto'
+import Long from 'long'
+import Cosmos from '@oraichain/cosmosjs'
 import { createMessageConvertCoin } from './msgConvertCoin'
-import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing/build";
-import { stringToPath } from "@cosmjs/crypto";
-import {
-  StargateClient,
-} from "@cosmjs/stargate";
-import { createTxRaw } from '@tharsis/proto';
-import Long from 'long';
-// import Cosmos from '@oraichain/cosmosjs'
 
 describe('msgConvertCoin tests', () => {
   it('valid', async () => {
-
-    // const cosmos = new Cosmos('http://167.172.151.137:1317', 'kawaii_6886-1');
-    // cosmos.setBech32MainPrefix('oraie');
-    // const childKey = cosmos.getChildKey('orange find liar team unknown fish floor swamp repair firm tribe announce basic pluck giant same armor dumb sugar coyote spice rain cable harbor');
-    // const address = cosmos.getAddress(childKey);
-    // console.log("address: ", address)
+    const cosmos = new Cosmos('http://167.172.151.137:1317', 'kawaii_6886-1')
+    cosmos.setBech32MainPrefix('oraie')
+    cosmos.path = "m/44'/118'/0'/0/0"
+    const childKey = cosmos.getChildKey(
+      'orange find liar team unknown fish floor swamp repair firm tribe announce basic pluck giant same armor dumb sugar coyote spice rain cable harbor',
+    )
+    const address = cosmos.getAddress(childKey)
+    console.log('address: ', address)
 
     const chain = {
       chainId: 6886,
@@ -23,7 +23,7 @@ describe('msgConvertCoin tests', () => {
     }
 
     const sender = {
-      accountAddress: 'oraie183wxk4cvrkjxn69jfghga5euy79a5v3zsh204g',
+      accountAddress: 'oraie14n3tx8s5ftzhlxvq0w5962v60vd82h30v78q92',
       sequence: 8,
       accountNumber: 17,
       pubkey: 'AipQCudhlHpWnHjSgVKZ+SoSicvjH7Mp5gCFyDdlnQtn',
@@ -40,36 +40,47 @@ describe('msgConvertCoin tests', () => {
     const params = {
       destinationAddress: '0x7482543Fc2BB9b78Cd8e2479bB642d4C20220735',
       amount: '1',
-      denom: 'ibc/E8734BEF4ECF225B71825BC74DE30DCFF3644EAC9778FFD4EF9F94369B6C8377',
+      denom:
+        'ibc/E8734BEF4ECF225B71825BC74DE30DCFF3644EAC9778FFD4EF9F94369B6C8377',
     }
 
     const msg = createMessageConvertCoin(chain, sender, fee, memo, params)
 
-    const bodyBytes = msg.signDirect.body.serialize();
-    const authInfoBytes = msg.signDirect.authInfo.serialize();
+    const bodyBytes = msg.signDirect.body.serialize()
+    const authInfoBytes = msg.signDirect.authInfo.serialize()
 
     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(
       'orange find liar team unknown fish floor swamp repair firm tribe announce basic pluck giant same armor dumb sugar coyote spice rain cable harbor',
       {
-        hdPaths: [stringToPath("m/44'/118'/0'/0/0")],
-        prefix: 'oraie'
-      }
-    );
-    console.log("FOO BAR")
+        hdPaths: [stringToPath("m/44'/60'/0'/0/0")],
+        prefix: 'oraie',
+      },
+    )
+    console.log('FOO BAR')
 
-    const accs = await wallet.getAccounts();
+    const accs = await wallet.getAccounts()
 
-    console.log("accs: ", accs);
+    console.log('accs: ', accs)
 
-    // const signedTx = await cosmos.sign(childKey, bodyBytes, authInfoBytes, 17, 'oraie183wxk4cvrkjxn69jfghga5euy79a5v3zsh204g');
+    // const signedTx = await cosmos.sign(childKey, bodyBytes, authInfoBytes, 17, 'oraie14n3tx8s5ftzhlxvq0w5962v60vd82h30v78q92');
 
-    const result = await wallet.signDirect('oraie183wxk4cvrkjxn69jfghga5euy79a5v3zsh204g', { bodyBytes, authInfoBytes, chainId: 'kawaii_6886-1', accountNumber: new Long(17) });
-    const signature = Buffer.from(result.signature.signature, "base64");
-    const txRaw = createTxRaw(bodyBytes, authInfoBytes, [signature]).message.serialize();
+    const result = await wallet.signDirect(
+      'oraie14n3tx8s5ftzhlxvq0w5962v60vd82h30v78q92',
+      {
+        bodyBytes,
+        authInfoBytes,
+        chainId: 'kawaii_6886-1',
+        accountNumber: new Long(17),
+      },
+    )
+    const signature = Buffer.from(result.signature.signature, 'base64')
+    const txRaw = createTxRaw(bodyBytes, authInfoBytes, [
+      signature,
+    ]).message.serialize()
 
-    const client = await StargateClient.connect('http://167.172.151.137:26657');
-    const txResult = await client.broadcastTx(txRaw);
-    console.log("tx result: ", txResult);
+    const client = await StargateClient.connect('http://167.172.151.137:26657')
+    const txResult = await client.broadcastTx(txRaw)
+    console.log('tx result: ', txResult)
 
     // expect(
     //   Buffer.from(msg.legacyAmino.body.serializeBinary()).toString('base64'),

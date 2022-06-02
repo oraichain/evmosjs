@@ -29,23 +29,10 @@
     "coverage": "jest --coverage",
     "coverage:unit": "yarn test:unit --coverage",
     "coverage:integration": "yarn test:integration --coverage",
-    "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
-    "lint:ci": "yarn lint . --format junit",
-    "lint:md": "markdownlint --ignore node_modules --ignore .git",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
-    "husky-skip": "cross-env HUSKY_SKIP_HOOKS=1",
     "commit": "git cz",
-    "prepare": "husky install",
     "lerna": "lerna"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ],
-    "*.md": [
-      "yarn format:md"
-    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.0",
