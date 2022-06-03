@@ -5,6 +5,7 @@ import { createTxRaw } from '@tharsis/proto'
 import Long from 'long'
 import Cosmos from '@oraichain/cosmosjs'
 import { createMessageConvertCoin } from './msgConvertCoin'
+import { kwtToEth } from '@tharsis/address-converter'
 
 describe('msgConvertCoin tests', () => {
   it('valid', async () => {
@@ -14,6 +15,11 @@ describe('msgConvertCoin tests', () => {
     const childKey = cosmos.getChildKey(
       'orange find liar team unknown fish floor swamp repair firm tribe announce basic pluck giant same armor dumb sugar coyote spice rain cable harbor',
     )
+
+    console.log(kwtToEth("oraie1rk46w4qgccgyw4un00pt3hn29rnvl29qsjvx5l"))
+
+    console.log(Buffer.from('034FBCA34A334DEEA60EB07DC638B22172A1B63B6F604C4B2030BD17318F2385A5', 'hex').toString('base64'))
+
     const address = cosmos.getAddress(childKey)
     console.log('address: ', address)
 

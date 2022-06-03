@@ -33,7 +33,7 @@ function createMsgConvertCoin(
   toAddress: string,
 ) {
   return {
-    type: '/evmos.erc20.v1.MsgConvertCoin',
+    type: 'cosmos-sdk/MsgConvertCoin',
     value: {
       coin: {
         denom,
@@ -74,12 +74,6 @@ export function createMessageConvertCoin(
     params.destinationAddress,
   )
 
-  // const msg = createMsgSend(
-  //   params.amount,
-  //   params.denom,
-  //   sender.accountAddress,
-  //   params.destinationAddress,
-  // )
   const messages = generateMessage(
     sender.accountNumber.toString(),
     sender.sequence.toString(),
