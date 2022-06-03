@@ -1,7 +1,7 @@
 {
-  "name": "@tharsis/transactions",
-  "description": "Transactions generator for EVMOS",
-  "version": "0.2.3",
+  "name": "@oraichain/kawaiiversejs",
+  "description": "Transactions generator for Kawaiiverse, forked from @tharsis/transactions and added some custom messages",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
