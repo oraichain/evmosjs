@@ -1,6 +1,7 @@
 export * from './messages/common'
 export * from './messages/gov'
 export * from './messages/ibcMsgTransfer'
+export * from './messages/ibcMsgTransferCustom'
 export * from './messages/msgSend'
 export * from './messages/msgConvertCoin'
 export * from './messages/msgConvertERC20'
